@@ -23,7 +23,7 @@ const props = defineProps({
   },
   className: {
     type: String,
-    required: true
+    default: ''
   }
 })
 // 定义计算属性: 判断是否为外部图标
