@@ -1,4 +1,5 @@
 import axios from 'axios'
+import store from '@/store/index'
 import { ElMessage } from 'element-plus'
 import { icode } from '../constances'
 // 定义实例 instance
@@ -7,6 +8,21 @@ const instance = axios.create({
   timeout: 5000,
   headers: { icode }
 })
+
+// 定义请求拦截器
+instance.interceptors.request.use(
+  config => {
+    // 在这个位置需要统一的去注入token
+    if (store.getters.token) {
+      // 如果token存在 注入token 注意 Authorization 大写
+      config.headers.Authorization = `Bearer ${store.getters.token}`
+    }
+    return config // 必须返回配置
+  },
+  error => {
+    return Promise.reject(error)
+  }
+)
 
 // 定义响应拦截器
 instance.interceptors.response.use(
