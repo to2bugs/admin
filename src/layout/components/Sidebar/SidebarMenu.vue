@@ -1,11 +1,13 @@
 <template>
   <!-- 一级 menu 菜单 -->
   <el-menu
+    :default-active="activeMenu"
     :uniqueOpened="true"
-    default-active="2"
-    background-color="#545c64"
-    text-color="#fff"
-    active-text-color="#ffd04b"
+    :background-color="$store.getters.cssVar.menuBg"
+    :text-color="$store.getters.cssVar.menuText"
+    :active-text-color="$store.getters.cssVar.menuActiveText"
+    :unique-opened="true"
+    router
   >
     <sidebar-item
       v-for="item in routes"
@@ -17,16 +19,22 @@
 
 <script setup>
 import { computed } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { filterRouters, generateMenus } from '@/utils/route'
 import SidebarItem from './SidebarItem.vue'
 
 const router = useRouter()
+const route = useRoute()
 const routes = computed(() => {
   const filterRoutes = filterRouters(router.getRoutes())
   return generateMenus(filterRoutes)
 })
 console.log(routes.value)
+//
+const activeMenu = computed(() => {
+  const { path } = route
+  return path
+})
 </script>
 
 <style lang="scss" scoped></style>
