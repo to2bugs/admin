@@ -1,6 +1,7 @@
 import { login, getUserInfo } from '@/api/sys'
 import { setItem, getItem, removeAllItem } from '@/utils/storage'
 import { TOKEN } from '@/constances/index'
+import { setTimeStamp } from '@/utils/auth'
 import md5 from 'md5'
 import router from '@/router/index'
 export default {
@@ -28,8 +29,10 @@ export default {
           password: md5(password)
         })
           .then(data => {
+            // 登录成功
             console.log(data)
             this.commit('user/setToken', data.token)
+            setTimeStamp()
             resolve()
           })
           .catch(err => {
