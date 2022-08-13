@@ -5,7 +5,7 @@ import md5 from 'md5'
 export default {
   namespaced: true,
   state: () => ({
-    token: getItem() || ''
+    token: getItem(TOKEN) || ''
   }),
   mutations: {
     setToken(state, token) {
