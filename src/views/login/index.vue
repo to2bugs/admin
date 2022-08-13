@@ -63,6 +63,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 import { validatePassword } from './rules'
 // 数据源
 const loginForm = ref({
@@ -99,6 +100,7 @@ const onChangePwdType = () => {
 const loading = ref(false)
 const loginFromRef = ref(null)
 const store = useStore()
+const router = useRouter()
 const handleLogin = () => {
   // console.log(loginFromRef.value)
   loginFromRef.value.validate((valid) => {
@@ -110,6 +112,7 @@ const handleLogin = () => {
       .then(() => {
         loading.value = false
         // TODO: 登录后操作
+        router.push('/')
       })
       .catch((err) => {
         console.log(err)
