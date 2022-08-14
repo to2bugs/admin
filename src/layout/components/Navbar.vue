@@ -1,6 +1,7 @@
 <template>
   <div class="navbar">
     <hamburger class="hamburger-container"></hamburger>
+    <breadcrumb class="breadcrumb-container"></breadcrumb>
     <div class="right-menu">
       <!-- 头像 -->
       <el-dropdown
@@ -36,6 +37,7 @@
 
 <script setup>
 import Hamburger from '@/components/Hamburger/index'
+import Breadcrumb from '@/components/Breadcrumb/index'
 import { useStore } from 'vuex'
 const store = useStore()
 //
@@ -54,6 +56,9 @@ const handleCommand = (command) => {
   background: #fff;
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
 
+  .breadcrumb-container {
+    float: left;
+  }
   .hamburger-container {
     line-height: 46px;
     height: 100%;
