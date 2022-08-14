@@ -1,5 +1,5 @@
 <template>
-  <div>profile</div>
+  <div>profile{{ $t('msg.test') }}</div>
 </template>
 
 <script setup></script>

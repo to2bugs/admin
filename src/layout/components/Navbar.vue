@@ -3,6 +3,7 @@
     <hamburger class="hamburger-container"></hamburger>
     <breadcrumb class="breadcrumb-container"></breadcrumb>
     <div class="right-menu">
+      <lang-select class="right-menu-item hover-effect"></lang-select>
       <!-- 头像 -->
       <el-dropdown
         class="avatar-container"
@@ -20,13 +21,13 @@
         <template #dropdown>
           <el-dropdown-menu class="user-dropdown">
             <router-link to="/">
-              <el-dropdown-item> 首页 </el-dropdown-item>
+              <el-dropdown-item>{{ $t('msg.navBar.home') }}</el-dropdown-item>
             </router-link>
             <a target="_blank" href="">
-              <el-dropdown-item>课程主页</el-dropdown-item>
+              <el-dropdown-item>{{ $t('msg.navBar.course') }}</el-dropdown-item>
             </a>
             <el-dropdown-item divided command="logout">
-              退出登录
+              {{ $t('msg.navBar.logout') }}
             </el-dropdown-item>
           </el-dropdown-menu>
         </template>
@@ -38,6 +39,7 @@
 <script setup>
 import Hamburger from '@/components/Hamburger/index'
 import Breadcrumb from '@/components/Breadcrumb/index'
+import LangSelect from '@/components/LangSelect/index.vue'
 import { useStore } from 'vuex'
 const store = useStore()
 //
@@ -76,6 +78,20 @@ const handleCommand = (command) => {
     float: right;
     padding-right: 16px;
 
+    ::v-deep(.right-menu-item1) {
+      width: 20px;
+      height: 100%;
+      line-height: 50px;
+      display: inline-block;
+      padding: 0 18px 0 0;
+      font-size: 24px;
+      color: #5a5e66;
+      vertical-align: text-bottom;
+      &.hover-effect {
+        cursor: pointer;
+      }
+    }
+
     ::v-deep .avatar-container {
       cursor: pointer;
       .avatar-wrapper {
@@ -86,6 +102,19 @@ const handleCommand = (command) => {
           margin-right: 12px;
         }
       }
+    }
+  }
+  .right-menu-item {
+    width: 20px;
+    height: 100%;
+    line-height: 50px;
+    display: inline-block;
+    padding: 0 18px 0 0;
+    font-size: 24px;
+    color: #5a5e66;
+    vertical-align: text-bottom;
+    &.hover-effect {
+      cursor: pointer;
     }
   }
 }

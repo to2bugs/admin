@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import installElementPlus from './plugins/element'
 import isntallSvgIcon from '@/icons/index'
+import i18n from '@/i18n/index'
 
 // 引入自定义的全局样式
 import '@/styles/index.scss'
@@ -15,4 +16,4 @@ const app = createApp(App)
 installElementPlus(app)
 // 全局注册自定义组件 SvgIcon
 isntallSvgIcon(app)
-app.use(store).use(router).mount('#app')
+app.use(store).use(router).use(i18n).mount('#app')
