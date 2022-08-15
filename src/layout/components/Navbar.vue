@@ -3,6 +3,7 @@
     <hamburger class="hamburger-container"></hamburger>
     <breadcrumb class="breadcrumb-container"></breadcrumb>
     <div class="right-menu">
+      <theme-select class="right-menu-item hover-effect"></theme-select>
       <lang-select class="right-menu-item hover-effect"></lang-select>
       <!-- 头像 -->
       <el-dropdown
@@ -40,6 +41,7 @@
 import Hamburger from '@/components/Hamburger/index'
 import Breadcrumb from '@/components/Breadcrumb/index'
 import LangSelect from '@/components/LangSelect/index.vue'
+import ThemeSelect from '@/components/ThemeSelect/index'
 import { useStore } from 'vuex'
 const store = useStore()
 //
@@ -78,7 +80,7 @@ const handleCommand = (command) => {
     float: right;
     padding-right: 16px;
 
-    ::v-deep(.right-menu-item1) {
+    ::v-deep(.right-menu-item) {
       width: 20px;
       height: 100%;
       line-height: 50px;
@@ -102,19 +104,6 @@ const handleCommand = (command) => {
           margin-right: 12px;
         }
       }
-    }
-  }
-  .right-menu-item {
-    width: 20px;
-    height: 100%;
-    line-height: 50px;
-    display: inline-block;
-    padding: 0 18px 0 0;
-    font-size: 24px;
-    color: #5a5e66;
-    vertical-align: text-bottom;
-    &.hover-effect {
-      cursor: pointer;
     }
   }
 }
