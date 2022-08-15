@@ -18,6 +18,8 @@
 
 <script setup>
 import { defineProps, ref, defineEmits } from 'vue'
+import { useStore } from 'vuex'
+const store = useStore()
 // 定义组件的属性 modelValue
 defineProps({
   modelValue: {
@@ -33,6 +35,7 @@ const closed = () => {
 }
 // 组件确定事件
 const confirm = async () => {
+  store.commit('theme/setMainColor', mColor.value)
   closed()
 }
 // 预定义色值
@@ -53,7 +56,14 @@ const predefineColors = [
   '#c7158577'
 ]
 // 默认色值
-const mColor = ref('#00ff00')
+const mColor = ref(store.getters.mainColor)
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.content {
+  text-align: center;
+  .title {
+    margin-bottom: 12px;
+  }
+}
+</style>
