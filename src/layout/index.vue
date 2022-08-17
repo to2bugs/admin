@@ -13,6 +13,7 @@
       <!-- 右侧顶部的 navbar -->
       <div class="fixed-header">
         <navbar></navbar>
+        <tag-view></tag-view>
       </div>
       <!-- 右侧的内容区 appmain -->
       <app-main></app-main>
@@ -24,6 +25,7 @@
 import Sidebar from '@/layout/components/Sidebar/index'
 import Navbar from '@/layout/components/Navbar'
 import AppMain from '@/layout/components/AppMain'
+import TagView from '@/components/TagView/index'
 import variables from '@/styles/variables.scss'
 </script>
 
