@@ -17,52 +17,56 @@
       @change="onSelectChange"
     >
       <el-option
-        v-for="option in 5"
-        :key="option"
-        :label="option"
-        :value="option"
+        v-for="option in searchOptions"
+        :key="option.item.path"
+        :label="option.item.title.join(' > ')"
+        :value="option.item"
       ></el-option>
     </el-select>
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { filterRouters } from '@/utils/route.js'
 import { generateRoutes } from './FuseData'
 import { useRouter } from 'vue-router'
+import { watchSwitchLang } from '@/utils/i18n.js'
 import Fuse from 'fuse.js'
 
 // 搜索的数据源 searchPool
 const router = useRouter()
-const searchPool = computed(() => {
+let searchPool = computed(() => {
   const fRouters = filterRouters(router.getRoutes())
   // return fRouters
   return generateRoutes(fRouters)
 })
-console.log('searchPool ', searchPool.value)
+// console.log('searchPool ', searchPool.value)
 // 搜索库 fuse.js 相关
-const fuse = new Fuse(searchPool.value, {
-  // 是否按优先级进行排序
-  shouldSort: true,
-  // 匹配长度超过这个值的才会被认为是匹配的
-  minMatchCharLength: 1,
-  // 将被搜索的键列表。 这支持嵌套路径、加权搜索、在字符串和对象数组中搜索。
-  // name：搜索的键
-  // weight：对应的权重
-  keys: [
-    {
-      name: 'title',
-      weight: 0.7
-    },
-    {
-      name: 'path',
-      weight: 0.3
-    }
-  ]
-})
-console.log(fuse)
-// 控制 search 显示
+let fuse = null
+const initFuse = (searchPool) => {
+  fuse = new Fuse(searchPool.value, {
+    // 是否按优先级进行排序
+    shouldSort: true,
+    // 匹配长度超过这个值的才会被认为是匹配的
+    minMatchCharLength: 1,
+    // 将被搜索的键列表。 这支持嵌套路径、加权搜索、在字符串和对象数组中搜索。
+    // name：搜索的键
+    // weight：对应的权重
+    keys: [
+      {
+        name: 'title',
+        weight: 0.7
+      },
+      {
+        name: 'path',
+        weight: 0.3
+      }
+    ]
+  })
+}
+initFuse(searchPool)
+// 控制 search 显示 isShow
 const isShow = ref(false)
 // el-select 实例
 const headerSearchSelectRef = ref(null)
@@ -71,17 +75,46 @@ const onShowClick = () => {
   headerSearchSelectRef.value.focus()
   console.log(isShow.value)
 }
-
 // search 相关
 const search = ref('')
 // 搜索方法
+const searchOptions = ref([])
 const querySearch = (query) => {
-  console.log(fuse.search(query))
+  // console.log(fuse.search(query))
+  if (query !== '') {
+    searchOptions.value = fuse.search(query)
+  } else {
+    searchOptions.value = []
+  }
 }
 // 选中回调
-const onSelectChange = () => {
-  console.log('onSelectChange')
+const onSelectChange = (value) => {
+  router.push(value.path)
 }
+// 监听
+watch(isShow, (value) => {
+  if (value) {
+    headerSearchSelectRef.value.focus()
+    document.body.addEventListener('click', onClose)
+  } else {
+    document.body.removeEventListener('click', onClose)
+  }
+})
+const onClose = () => {
+  // 失去焦点
+  headerSearchSelectRef.value.blur()
+  isShow.value = false
+  searchOptions.value = []
+}
+// 监听语言变化: 重新生成数据源
+watchSwitchLang((lang) => {
+  searchPool = computed(() => {
+    const fRouters = filterRouters(router.getRoutes())
+    // return fRouters
+    return generateRoutes(fRouters)
+  })
+  initFuse(searchPool)
+})
 </script>
 
 <style lang="scss" scoped>
