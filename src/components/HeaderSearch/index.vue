@@ -28,7 +28,8 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import { filterRouters, generateMenus } from '@/utils/route.js'
+import { filterRouters } from '@/utils/route.js'
+import { generateRoutes } from './FuseData'
 import { useRouter } from 'vue-router'
 import Fuse from 'fuse.js'
 
@@ -36,10 +37,12 @@ import Fuse from 'fuse.js'
 const router = useRouter()
 const searchPool = computed(() => {
   const fRouters = filterRouters(router.getRoutes())
-  return generateMenus(fRouters)
+  // return fRouters
+  return generateRoutes(fRouters)
 })
+console.log('searchPool ', searchPool.value)
 // 搜索库 fuse.js 相关
-const fuse = new Fuse(searchPool, {
+const fuse = new Fuse(searchPool.value, {
   // 是否按优先级进行排序
   shouldSort: true,
   // 匹配长度超过这个值的才会被认为是匹配的
@@ -72,8 +75,8 @@ const onShowClick = () => {
 // search 相关
 const search = ref('')
 // 搜索方法
-const querySearch = () => {
-  console.log('querySearch')
+const querySearch = (query) => {
+  console.log(fuse.search(query))
 }
 // 选中回调
 const onSelectChange = () => {
