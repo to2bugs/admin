@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="guide-sidebar">
     <div class="logo-container">
       <el-avatar
         size="44"

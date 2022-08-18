@@ -1,5 +1,5 @@
 <template>
-  <el-breadcrumb class="breadcrumb" separator="/">
+  <el-breadcrumb id="guide-breadcrumb" class="breadcrumb" separator="/">
     <transition-group>
       <el-breadcrumb-item
         v-for="(item, index) in breadcrumbData"

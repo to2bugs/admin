@@ -1,5 +1,5 @@
 <template>
-  <div class="lang-container">
+  <div id="guide-lang" class="lang-container">
     <el-dropdown
       class="international"
       trigger="click"

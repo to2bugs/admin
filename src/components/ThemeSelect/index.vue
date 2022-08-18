@@ -1,5 +1,6 @@
 <template>
   <el-dropdown
+    id="guide-theme"
     v-bind="$attrs"
     trigger="click"
     class="theme"
