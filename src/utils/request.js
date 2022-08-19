@@ -24,6 +24,8 @@ instance.interceptors.request.use(
       // 如果token存在 注入token 注意 Authorization 大写
       config.headers.Authorization = `Bearer ${store.getters.token}`
     }
+    // 配置接口的国际化
+    config.headers['Accept-Language'] = store.getters.language
     return config // 必须返回配置
   },
   error => {
