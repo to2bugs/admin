@@ -9,3 +9,13 @@ export const getFeature = () => {
     method: 'GET'
   })
 }
+/**
+ * 获取章节接口
+ * @returns Promise
+ */
+export const getChapter = () => {
+  return request({
+    url: '/user/chapter',
+    method: ''
+  })
+}
