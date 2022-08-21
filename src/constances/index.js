@@ -1,4 +1,4 @@
-export const icode = 'BF7040BF11F08F33'
+export const icode = '1ED24E2D6428C1DD'
 export const TOKEN = 'token'
 // token 时间戳
 export const TIME_STAMP = 'timeStamp'

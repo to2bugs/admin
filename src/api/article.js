@@ -9,3 +9,13 @@ export const createArticle = data => {
     data
   })
 }
+/**
+ * 获取所有的文章
+ */
+export const getArticleList = (data) => {
+  return request({
+    url: '/article/list',
+    method: 'GET',
+    params: data
+  })
+}
